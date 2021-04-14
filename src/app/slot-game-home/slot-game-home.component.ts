@@ -79,10 +79,10 @@ spin(){
     this.currentSym2 = this.symbolReel[randomNum2];
     this.currentSym3 = this.symbolReel[randomNum3];
   }
-
+timer:any=20
   spinning(){
    if(this.credits > 0){
-    this.stopSpin = setInterval(()=>{this.spin()},30);
+     this.stopSpin = setInterval(()=>{this.spin()},this.timer);
     }else{
       alert("Credits are No more . You have to restart");
     } 
@@ -138,6 +138,7 @@ spin(){
   }
   restart(){
     this.credits=10
-     this.onClick()
+     //this.onClick()
+  
   }
 }
