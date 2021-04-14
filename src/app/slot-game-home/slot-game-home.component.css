@@ -1,0 +1,21 @@
+.img
+{
+    height:150px;
+    width:100px;
+}
+
+.c {
+width: 70px;
+height:50px;
+ background-color:gary;
+ border: 1px solid darkblue; 
+}
+
+/* .moving-left {
+  border: 1px solid darkblue;
+  background-color: lightblue;
+  padding: 10px;
+  margin: 10px 0;
+  width: 500px;
+  margin: auto;
+} */

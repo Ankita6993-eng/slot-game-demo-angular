@@ -1,0 +1,53 @@
+<p>register works!</p>
+
+<h2>Register</h2>
+<form [formGroup]="registerForm" (ngSubmit)="Submit()">
+<table border="2s">
+  <tr class="form-group">
+    <td for="firstName">First Name</td>
+    <td><input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" /></td>
+ 
+    <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+      <div *ngIf="f.firstName.errors.required">First Name is required</div>
+    </div>
+   
+  </tr>
+
+
+  <tr class="form-group">
+    <td for="lastName">Last Name</td>
+   <td> <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" /></td>
+    <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+      <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+    </div>
+  </tr>
+
+
+  <tr class="form-group">
+    <td for="username">Username</td>
+    <td><input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" /></td>
+    <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+      <div *ngIf="f.username.errors.required">Username is required</div>
+    </div>
+  </tr>
+
+
+
+  <tr class="form-group">
+    <td for="password">Password</td>
+   <td> <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" /></td>
+    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+      <div *ngIf="f.password.errors.required">Password is required</div>
+      <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+    </div>
+  </tr>
+
+
+  <tr class="form-group">
+    <button class="btn btn-primary">Register</button>
+
+    <a [routerLink]="['/login']" class="btn btn-link">LOGIN</a>
+  </tr>
+  </table>
+</form>
+

@@ -1,0 +1,24 @@
+<h1>Welcome To Slot Machine Game {{user_name}}</h1>
+<p><a [routerLink]="['/login']">Logout</a></p>
+
+ <div>
+                CREDITS = {{credits}}
+</div>
+
+<div class="images">
+       <img class="img" [src]="currentSym1.symbolLink" (click)="stopSpinning()">
+       <img class="img" [src]="currentSym2.symbolLink" (click)="stopSpinning()">
+       <img class="img" [src]="currentSym3.symbolLink" (click)="stopSpinning()">
+</div>
+
+  <div>
+    <button type="button" (click)="spinning()">SPIN</button>
+    <button type="button"(click)="stopSpinning()" >STOP</button>
+    <button type="button" (click)="restart()">RESTART</button>
+ </div>
+
+ <button type="button" id='caseout' (click)="onClick()" [@btncaseout]="position" (mouseenter)="changePosition()">Case OUT</button>
+
+ 
+ 
+
