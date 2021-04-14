@@ -89,9 +89,7 @@ spin(){
      
   }
 
-  restart(){
-    this.credits=10
-  }
+  
 
    winOrLose(){
     this.slot1_eq_slot2 = (this.currentSym1.value == this.currentSym2.value);
@@ -137,5 +135,19 @@ spin(){
             localStorage.setItem('users', JSON.stringify( this.existing));
              localStorage.setItem('currentUser', JSON.stringify( this.user));
       }
+  }
+  restart(){
+    this.credits=10
+     let index = this.existing.findIndex((x:any) => x.id===this.user.id);
+      console.log("index",index)
+      console.log("existing user",this.existing)
+      if ( index>-1) {
+            this.user.credits=this.credits
+            this.existing.splice(index, 1, this.user);
+            console.log("user===",this.user)
+            console.log("existing user====",this.existing) 
+            localStorage.setItem('users', JSON.stringify( this.existing));
+             localStorage.setItem('currentUser', JSON.stringify( this.user));
+  }
   }
 }

@@ -45,7 +45,7 @@ return of(new HttpResponse({ status: 200 }));
 
                     return of(new HttpResponse({ status: 200, body: body }));
                 } else {
-                    // else return 400 bad request
+                
                     return throwError({ error: { message: 'Username or password is incorrect' } });
                 }
             }
