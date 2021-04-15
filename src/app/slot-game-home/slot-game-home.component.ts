@@ -57,6 +57,8 @@ move_button:any
   slot2_eq_slot3: boolean=false
   slot1_eq_slot3: boolean=false
   stopSpin:any; 
+  stopSpin1:any
+  stopSpin2:any
   constructor(private animationBuilder:AnimationBuilder) { }
 
   ngOnInit(): void {
@@ -70,26 +72,25 @@ move_button:any
     this.credits=this.user.credits
   }
 
-spin(){
-    let randomNum1 = Math.floor(Math.random() * (this.symbolReel.length));
-    let randomNum2 = Math.floor(Math.random() * (this.symbolReel.length));
-    let randomNum3 = Math.floor(Math.random() * (this.symbolReel.length));
-    
-    this.currentSym1 = this.symbolReel[randomNum1];
-    this.currentSym2 = this.symbolReel[randomNum2];
-    this.currentSym3 = this.symbolReel[randomNum3];
-  }
-timer:any=20
-  spinning(){
-   if(this.credits > 0){
-     this.stopSpin = setInterval(()=>{this.spin()},this.timer);
-    }else{
+obj_spin1(){
+    //let randomNum1 = Math.floor(Math.random() * (this.symbolReel.length));
+    if(this.credits > 0){
+   this.stopSpin=setInterval(()=> {this.currentSym1 = this.symbolReel[Math.floor(Math.random() * (this.symbolReel.length))];},100)
+    setTimeout(() => {clearInterval(this.stopSpin);}, 1000);
+
+     this.stopSpin1=setInterval(()=> {this.currentSym2 = this.symbolReel[Math.floor(Math.random() * (this.symbolReel.length))];},200)
+    setTimeout(() => {clearInterval(this.stopSpin1);}, 2000);
+
+     this.stopSpin2=setInterval(()=> {this.currentSym3 = this.symbolReel[Math.floor(Math.random() * (this.symbolReel.length))];},300)
+    setTimeout(() => {clearInterval(this.stopSpin2); this.winOrLose()}, 3000);
+  
+    }
+    else{
       alert("Credits are No more . You have to restart");
     } 
-     
-  }
 
-  
+
+}
 
    winOrLose(){
     this.slot1_eq_slot2 = (this.currentSym1.value == this.currentSym2.value);

@@ -6,14 +6,13 @@
 </div>
 
 <div class="images">
-       <img class="img" [src]="currentSym1.symbolLink" (click)="stopSpinning()">
-       <img class="img" [src]="currentSym2.symbolLink" (click)="stopSpinning()">
-       <img class="img" [src]="currentSym3.symbolLink" (click)="stopSpinning()">
+       <img class="img" [src]="currentSym1.symbolLink" >
+       <img class="img" [src]="currentSym2.symbolLink" >
+       <img class="img" [src]="currentSym3.symbolLink" >
 </div>
 
   <div>
-    <button type="button" (click)="spinning()">SPIN</button>
-    <button type="button"(click)="stopSpinning()" >STOP</button>
+    <button type="button" (click)="obj_spin1()">SPIN</button>
     <button type="button" (click)="restart()">RESTART</button>
  </div>
 
