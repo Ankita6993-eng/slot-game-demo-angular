@@ -1,14 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,ViewChild} from '@angular/core';
 import {AnimationBuilder, trigger,
   state,
   style,
   animate,
   transition,} from '@angular/animations';
  import { ChartType, ChartOptions } from 'chart.js';
-import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip } from 'ng2-charts';
+import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip,BaseChartDirective } from 'ng2-charts';
 import { Observable, of } from 'rxjs';
-import { debounceTime, scan, startWith, tap } from 'rxjs/operators';
-import { AsyncPipe } from "@angular/common";
+
 
 @Component({
   selector: 'app-slot-game-home',
@@ -46,7 +45,7 @@ export class SlotGameHomeComponent implements OnInit {
     symbolLink: "/assets/Images/w.jpg",
     credits:40
   }];
-
+ @ViewChild(BaseChartDirective) chart: BaseChartDirective;
   currentSym1:any;
   currentSym2: any;
   currentSym3: any;
@@ -63,32 +62,29 @@ export class SlotGameHomeComponent implements OnInit {
   wins:number|any['']=[]
   totaltry:number|any=localStorage.getItem('try') ? localStorage.getItem('try') : 0;
   wintry:number|any=localStorage.getItem('wintry') ? localStorage.getItem('wintry') : 0;
-  total: Observable<any>;
-  isapin:boolean=false
-  
+  tot:any=0
+  total:Observable<any>|any=new Observable<any>(observer => {
+    observer.next(this.totaltry)
+   });
 
+   isapin:boolean=false
+  
+  
   constructor(private animationBuilder:AnimationBuilder) { }
 
   ngOnInit(): void {
     this.currentSym1 = this.symbolReel[1];
     this.currentSym2 = this.symbolReel[2];
     this.currentSym3 = this.symbolReel[0]; 
-
     this.user=JSON.parse(localStorage.getItem('currentUser') || '{}')    
     this.user_name=this.user.username
-
     this.credits=this.user.credits
-    
+
+   
   }
 
 obj_spin1(){
   this.isapin=true
-
-  this.totaltry++;
-localStorage.setItem('try', ( this.totaltry));
-
-
-
 
     if(this.credits > 0){
         this.stopSpin=setInterval(()=> {this.currentSym1 = this.symbolReel[Math.floor(Math.random() * (this.symbolReel.length))];},20)
@@ -104,7 +100,25 @@ localStorage.setItem('try', ( this.totaltry));
     else{
       alert("Credits are No more . You have to restart");
     } 
+ this.totaltry++;
+localStorage.setItem('try', ( this.totaltry));
 
+this.total.subscribe({
+  next(res:any) {
+    console.log('Current try: ', res);
+    localStorage.setItem('try',res)
+    this.totaltry=localStorage.getItem('try')
+    console.log("trying",this.totaltry)
+  },
+  error(msg:any) {
+    console.log('Error Getting Location: ', msg);
+  }
+});
+
+ setTimeout(() => {
+    this.chart.chart.data.datasets[0].data=[this.totaltry,this.wintry]
+    this.chart.chart.update()
+}, 20);
    
 }
 
@@ -127,9 +141,11 @@ localStorage.setItem('try', ( this.totaltry));
       alert("You WON!");
       this.wintry++
       localStorage.setItem('wintry', ( this.wintry));
+     
     }else{
        this.credits--
       alert("You have Lost!");
+     
     }
    }
 
@@ -165,23 +181,23 @@ localStorage.setItem('try', ( this.totaltry));
   }
 
 
-  
-    public pieChartOptions: ChartOptions = {
-    responsive: true,
-  };
-
-  
- public pieChartLabels: string|any = ["total try","Win try"];
-  public data: number|any = [this.totaltry,this.wintry];
    
-  
+  public pieChartLabels: string|any = ["total try","Win try"];
+  public data: number|any = [this.totaltry,this.wintry];
   public pieChartType: string|any = "pie";
-  // events
+  
+  
   public chartClicked(e: any): void {
     //console.log(e);
   }
   public chartHovered(e: any): void {
    // console.log(e);
   }
+    public pieChartOptions: ChartOptions = {
+    responsive: true,
+  };
+
+  
+ 
   
 }
