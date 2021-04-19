@@ -11,6 +11,11 @@ height:50px;
  border: 1px solid darkblue; 
 }
 
+.chart{
+  height:700px;
+  width:700px;
+}
+
 /* .moving-left {
   border: 1px solid darkblue;
   background-color: lightblue;

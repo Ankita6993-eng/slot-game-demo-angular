@@ -4,6 +4,8 @@ import {AnimationBuilder, trigger,
   style,
   animate,
   transition,} from '@angular/animations';
+ import { ChartType, ChartOptions } from 'chart.js';
+import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip } from 'ng2-charts';
 
 @Component({
   selector: 'app-slot-game-home',
@@ -22,10 +24,6 @@ import {AnimationBuilder, trigger,
 
 export class SlotGameHomeComponent implements OnInit {
  
-move_button:any
- 
-  
-
    symbolReel:any[] = [{
     value: "C",
     symbolLink: "/assets/Images/cheery.jpg",
@@ -59,6 +57,12 @@ move_button:any
   stopSpin:any; 
   stopSpin1:any
   stopSpin2:any
+  wins:number|any['']=[]
+  totaltry:number=0
+  isapin:boolean=false    
+  
+  
+
   constructor(private animationBuilder:AnimationBuilder) { }
 
   ngOnInit(): void {
@@ -70,29 +74,34 @@ move_button:any
     this.user_name=this.user.username
 
     this.credits=this.user.credits
+    
   }
 
 obj_spin1(){
-    //let randomNum1 = Math.floor(Math.random() * (this.symbolReel.length));
+this.isapin=true
+    this.totaltry=0
+    this.totaltry++
+    console.log("trying",this.totaltry)
+
     if(this.credits > 0){
-   this.stopSpin=setInterval(()=> {this.currentSym1 = this.symbolReel[Math.floor(Math.random() * (this.symbolReel.length))];},100)
-    setTimeout(() => {clearInterval(this.stopSpin);}, 1000);
+        this.stopSpin=setInterval(()=> {this.currentSym1 = this.symbolReel[Math.floor(Math.random() * (this.symbolReel.length))];},20)
+        setTimeout(() => {clearInterval(this.stopSpin);}, 1000);
 
-     this.stopSpin1=setInterval(()=> {this.currentSym2 = this.symbolReel[Math.floor(Math.random() * (this.symbolReel.length))];},200)
-    setTimeout(() => {clearInterval(this.stopSpin1);}, 2000);
+        this.stopSpin1=setInterval(()=> {this.currentSym2 = this.symbolReel[Math.floor(Math.random() * (this.symbolReel.length))];},20)
+        setTimeout(() => {clearInterval(this.stopSpin1);}, 2000);
 
-     this.stopSpin2=setInterval(()=> {this.currentSym3 = this.symbolReel[Math.floor(Math.random() * (this.symbolReel.length))];},300)
-    setTimeout(() => {clearInterval(this.stopSpin2); this.winOrLose()}, 3000);
-  
+        this.stopSpin2=setInterval(()=> {this.currentSym3 = this.symbolReel[Math.floor(Math.random() * (this.symbolReel.length))];},20)
+        setTimeout(() => {clearInterval(this.stopSpin2); this.winOrLose()}, 3000);
+    
     }
     else{
       alert("Credits are No more . You have to restart");
     } 
-
-
 }
 
    winOrLose(){
+    
+    this.isapin=false
     this.slot1_eq_slot2 = (this.currentSym1.value == this.currentSym2.value);
     this.slot2_eq_slot3 = (this.currentSym2.value == this.currentSym3.value);
     this.slot1_eq_slot3 = (this.currentSym1.value == this.currentSym3.value);
@@ -115,6 +124,7 @@ obj_spin1(){
 
    changePosition(){
     this.position = "move"
+
   }
 
   stopSpinning(){
@@ -142,4 +152,23 @@ obj_spin1(){
      //this.onClick()
   
   }
+
+
+  
+    public pieChartOptions: ChartOptions = {
+    responsive: true,
+  };
+
+  
+ public pieChartLabels: string|any = ["total try"];
+  public data: number|any = [this.totaltry];
+  public pieChartType: string|any = "pie";
+  // events
+  public chartClicked(e: any): void {
+    //console.log(e);
+  }
+  public chartHovered(e: any): void {
+   // console.log(e);
+  }
+  
 }

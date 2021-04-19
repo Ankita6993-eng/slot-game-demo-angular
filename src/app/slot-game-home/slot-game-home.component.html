@@ -12,11 +12,20 @@
 </div>
 
   <div>
-    <button type="button" (click)="obj_spin1()">SPIN</button>
+    <button type="button" (click)="obj_spin1()" [disabled]="isapin">SPIN</button>
     <button type="button" (click)="restart()">RESTART</button>
  </div>
 
  <button type="button" id='caseout' (click)="onClick()" [@btncaseout]="position" (mousemove)="changePosition()">Case OUT</button>
+      chartdata==={{data}}              totaltry=={{totaltry}}
+    <div  class="chart" style="display: block">
+  <canvas baseChart
+          [data]="data"
+          [labels]="pieChartLabels"
+          [chartType]="pieChartType"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+</div>
 
  
  

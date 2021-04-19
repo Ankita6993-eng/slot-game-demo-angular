@@ -13,6 +13,7 @@ import { AuthenticationService} from './service/authentication.service';
 import { UserService} from './service/user.service';
 import { SlotGameHomeComponent } from './slot-game-home/slot-game-home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ChartsModule
   ],
   providers: [
      { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
