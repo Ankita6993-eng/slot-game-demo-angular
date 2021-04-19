@@ -6,6 +6,9 @@ import {AnimationBuilder, trigger,
   transition,} from '@angular/animations';
  import { ChartType, ChartOptions } from 'chart.js';
 import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip } from 'ng2-charts';
+import { Observable, of } from 'rxjs';
+import { debounceTime, scan, startWith, tap } from 'rxjs/operators';
+import { AsyncPipe } from "@angular/common";
 
 @Component({
   selector: 'app-slot-game-home',
@@ -58,9 +61,10 @@ export class SlotGameHomeComponent implements OnInit {
   stopSpin1:any
   stopSpin2:any
   wins:number|any['']=[]
-  totaltry:number=0
-  isapin:boolean=false    
-  
+  totaltry:number|any=localStorage.getItem('try') ? localStorage.getItem('try') : 0;
+  wintry:number|any=localStorage.getItem('wintry') ? localStorage.getItem('wintry') : 0;
+  total: Observable<any>;
+  isapin:boolean=false
   
 
   constructor(private animationBuilder:AnimationBuilder) { }
@@ -78,10 +82,13 @@ export class SlotGameHomeComponent implements OnInit {
   }
 
 obj_spin1(){
-this.isapin=true
-    this.totaltry=0
-    this.totaltry++
-    console.log("trying",this.totaltry)
+  this.isapin=true
+
+  this.totaltry++;
+localStorage.setItem('try', ( this.totaltry));
+
+
+
 
     if(this.credits > 0){
         this.stopSpin=setInterval(()=> {this.currentSym1 = this.symbolReel[Math.floor(Math.random() * (this.symbolReel.length))];},20)
@@ -92,16 +99,18 @@ this.isapin=true
 
         this.stopSpin2=setInterval(()=> {this.currentSym3 = this.symbolReel[Math.floor(Math.random() * (this.symbolReel.length))];},20)
         setTimeout(() => {clearInterval(this.stopSpin2); this.winOrLose()}, 3000);
-    
+
     }
     else{
       alert("Credits are No more . You have to restart");
     } 
+
+   
 }
 
    winOrLose(){
     
-    this.isapin=false
+     this.isapin=false
     this.slot1_eq_slot2 = (this.currentSym1.value == this.currentSym2.value);
     this.slot2_eq_slot3 = (this.currentSym2.value == this.currentSym3.value);
     this.slot1_eq_slot3 = (this.currentSym1.value == this.currentSym3.value);
@@ -116,6 +125,8 @@ this.isapin=true
         this.credits += this.currentSym2.credits;
       }
       alert("You WON!");
+      this.wintry++
+      localStorage.setItem('wintry', ( this.wintry));
     }else{
        this.credits--
       alert("You have Lost!");
@@ -160,8 +171,10 @@ this.isapin=true
   };
 
   
- public pieChartLabels: string|any = ["total try"];
-  public data: number|any = [this.totaltry];
+ public pieChartLabels: string|any = ["total try","Win try"];
+  public data: number|any = [this.totaltry,this.wintry];
+   
+  
   public pieChartType: string|any = "pie";
   // events
   public chartClicked(e: any): void {
