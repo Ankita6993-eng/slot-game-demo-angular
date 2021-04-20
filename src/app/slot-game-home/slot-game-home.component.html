@@ -18,12 +18,13 @@
 
  <button type="button" id='caseout' (click)="onClick()" [@btncaseout]="position" (mousemove)="changePosition()">Case OUT</button>
        
-    <div  class="chart" style="display: block">
+    <div *ngIf="data.length > 1"  class="chart" style="display: block">
   <canvas baseChart
           [data]="data"
           [labels]="pieChartLabels"
           [chartType]="pieChartType"
-         ></canvas>
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
 </div>
 
  

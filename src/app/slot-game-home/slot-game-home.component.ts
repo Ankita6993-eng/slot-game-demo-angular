@@ -59,13 +59,12 @@ export class SlotGameHomeComponent implements OnInit {
   stopSpin:any; 
   stopSpin1:any
   stopSpin2:any
-  wins:number|any['']=[]
-  totaltry:number|any=localStorage.getItem('try') ? localStorage.getItem('try') : 0;
-  wintry:number|any=localStorage.getItem('wintry') ? localStorage.getItem('wintry') : 0;
-  tot:any=0
-  total:Observable<any>|any=new Observable<any>(observer => {
-    observer.next(this.totaltry)
-   });
+  totaltry:number|any= 0;
+  wintry:number|any=0;
+   
+  public pieChartLabels: string|any = ["total try","Win try"];
+  public data: number|any = [this.totaltry,this.wintry];
+  public pieChartType: string|any = "pie";
 
    isapin:boolean=false
   
@@ -79,13 +78,10 @@ export class SlotGameHomeComponent implements OnInit {
     this.user=JSON.parse(localStorage.getItem('currentUser') || '{}')    
     this.user_name=this.user.username
     this.credits=this.user.credits
-
-   
   }
 
 obj_spin1(){
   this.isapin=true
-
     if(this.credits > 0){
         this.stopSpin=setInterval(()=> {this.currentSym1 = this.symbolReel[Math.floor(Math.random() * (this.symbolReel.length))];},20)
         setTimeout(() => {clearInterval(this.stopSpin);}, 1000);
@@ -101,24 +97,7 @@ obj_spin1(){
       alert("Credits are No more . You have to restart");
     } 
  this.totaltry++;
-localStorage.setItem('try', ( this.totaltry));
-
-this.total.subscribe({
-  next(res:any) {
-    console.log('Current try: ', res);
-    localStorage.setItem('try',res)
-    this.totaltry=localStorage.getItem('try')
-    console.log("trying",this.totaltry)
-  },
-  error(msg:any) {
-    console.log('Error Getting Location: ', msg);
-  }
-});
-
- setTimeout(() => {
-    this.chart.chart.data.datasets[0].data=[this.totaltry,this.wintry]
-    this.chart.chart.update()
-}, 20);
+this.chart_update()
    
 }
 
@@ -140,8 +119,7 @@ this.total.subscribe({
       }
       alert("You WON!");
       this.wintry++
-      localStorage.setItem('wintry', ( this.wintry));
-     
+      this.chart_update()
     }else{
        this.credits--
       alert("You have Lost!");
@@ -149,9 +127,15 @@ this.total.subscribe({
     }
    }
 
+   chart_update(){
+        setTimeout(() => {
+            this.chart.chart.data.datasets[0].data=[this.totaltry,this.wintry]
+            this.chart.chart.update()
+        }, 20);  
+   }
+
    changePosition(){
     this.position = "move"
-
   }
 
   stopSpinning(){
@@ -178,26 +162,14 @@ this.total.subscribe({
     this.credits=10
      //this.onClick()
   
-  }
-
-
-   
-  public pieChartLabels: string|any = ["total try","Win try"];
-  public data: number|any = [this.totaltry,this.wintry];
-  public pieChartType: string|any = "pie";
-  
-  
+  } 
   public chartClicked(e: any): void {
     //console.log(e);
   }
   public chartHovered(e: any): void {
-   // console.log(e);
+    //console.log(e);
   }
     public pieChartOptions: ChartOptions = {
     responsive: true,
   };
-
-  
- 
-  
 }
