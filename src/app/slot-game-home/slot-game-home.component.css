@@ -2,25 +2,74 @@
 {
     height:150px;
     width:100px;
+   border: 3px solid green;
+  padding: 10px;
+  margin: auto;
+  text-align: center;
+  justify-content: center; 
+}
+.images
+{
+  text-align: center;
 }
 
-.c {
-width: 70px;
-height:50px;
- background-color:gary;
- border: 1px solid darkblue; 
+.button{
+   text-align: center;  
 }
 
 .chart{
   height:700px;
   width:700px;
+  text-align: center;  
+  margin-top: auto;
+}
+.btn1{
+  font-size: 12px;
+  background-color: LightBlue;
+  border-radius: 12px;
+  height:50px;
+  width:60px;
+}
+.btn2{
+  font-size: 12px;
+  background-color:LightBlue;
+  border-radius: 12px;
+  height:50px;
+  width:70px;
+  margin:20px
 }
 
-/* .moving-left {
-  border: 1px solid darkblue;
-  background-color: lightblue;
-  padding: 10px;
-  margin: 10px 0;
-  width: 500px;
-  margin: auto;
-} */
+.btn3{
+  font-size: 12px;
+  background-color:LightBlue;
+  border-radius: 12px;
+  height:50px;
+  width:80px;
+  margin:1px;
+}
+.logout{
+  font-size: 12px;
+  background-color:LightBlue;
+  border-radius: 12px;
+  height:50px;
+  width:70px;
+  margin-top: -60px;
+  margin-left: 580px;
+  position:absolute;
+}
+.id1{
+  border: 5px solid #FFFF00;
+text-align: center;
+}
+.id2{
+  height:50px;
+  text-align: center;
+}
+.p1{
+  font-size:20px;
+}
+.ratio
+{
+ text-align: center;
+ font-size:20px;
+}
