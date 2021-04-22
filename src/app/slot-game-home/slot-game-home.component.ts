@@ -6,8 +6,7 @@ import {AnimationBuilder, trigger,
   transition,} from '@angular/animations';
  import { ChartType, ChartOptions } from 'chart.js';
 import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip,BaseChartDirective } from 'ng2-charts';
-
-
+//
 @Component({
   selector: 'app-slot-game-home',
   templateUrl: './slot-game-home.component.html',
@@ -17,18 +16,18 @@ import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsToolt
       state(
         'move',
         style({
-          transform: 'translate3d(300px,50px,0)',
+          transform: 'translate3d(500px,70px,0)',
         })
       ),
       state(
         'state2',
         style({
-          transform: 'translate3d(300px,50px,0)',
+          transform: 'translate3d(500px,70px,0)',
         })
       ),
 
-      transition('state=>state2', animate('1s ease-in')),
-      transition('state2=>state',animate('1s ease-in')),
+      transition('move<=>state2', animate('20000ms')),
+      transition('state2<=>move',animate('9000ms')),
    ]),
 
   ],
@@ -55,7 +54,7 @@ export class SlotGameHomeComponent implements OnInit {
     credits:40
   }];
  @ViewChild(BaseChartDirective) chart: BaseChartDirective;
-  @ViewChild('panel') public panel:ElementRef;
+
   currentSym1:any;
   currentSym2: any;
   currentSym3: any;
@@ -106,7 +105,7 @@ obj_spin1(){
   if(this.credits>0){
  this.stopSpin= setInterval(() => {
         setTimeout(() => {this.currentSym1 = this.symbolReel[Math.floor(Math.random() * (this.symbolReel.length))]},1000);
-      }, 10);
+      }, 20);
 
         setTimeout(() => {
         clearInterval(this.stopSpin);
@@ -114,18 +113,18 @@ obj_spin1(){
 
   this.stopSpin1=setInterval(() => {
         setTimeout(() => {this.currentSym2  = this.symbolReel[Math.floor(Math.random() * (this.symbolReel.length))] },2000);
-      }, 10);
+      }, 20);
       setTimeout(() => {
         clearInterval(this.stopSpin1);
-      }, 2000);
+      }, 1000);
 
   this.stopSpin2=setInterval(() => {
         setTimeout(() => {this.currentSym3 = this.symbolReel[Math.floor(Math.random() * (this.symbolReel.length))] },3000);
-      }, 10 );
+      }, 20 );
       setTimeout(() => {
         clearInterval(this.stopSpin2);
-      }, 3000);
-      setTimeout(()=>{this.winOrLose()},6500)
+      }, 1000);
+      setTimeout(()=>{this.winOrLose()},4500)
   }
 else{
   alert("Insufficent credits .. Restart game")
@@ -174,9 +173,8 @@ disableButton(){
     }, rand * 3000);
   }
    changePosition(){
-    this.position = 'state2';
-    this.currentState = this.currentState === 'initial'?'final':'initial';
-    this.panel.nativeElement.scrollIntoView({ behavior: 'smooth' });
+    this.position = 'move';
+     this.currentState = this.currentState === 'initial'?'final':'initial';
     this.disableButton();
   }
 

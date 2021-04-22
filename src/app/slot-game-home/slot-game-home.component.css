@@ -46,6 +46,7 @@
   height:50px;
   width:80px;
   margin:1px;
+  transition: all ease-in-out 3.0s;
 }
 .logout{
   font-size: 12px;
@@ -72,4 +73,14 @@ text-align: center;
 {
  text-align: center;
  font-size:20px;
+}
+.drag{
+    height: 100px;
+    width: 100px;
+    border: solid 3px;
+}
+ 
+.container{
+ border: dotted 3px;
+ min-height: 500px;
 }

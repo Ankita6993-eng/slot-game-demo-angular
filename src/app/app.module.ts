@@ -15,6 +15,7 @@ import { SlotGameHomeComponent } from './slot-game-home/slot-game-home.component
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChartsModule } from 'ng2-charts';
 
+
 @NgModule({
   declarations: [
     AppComponent,

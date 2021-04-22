@@ -15,7 +15,7 @@
   <div class="button">
     <button type="button" (click)="obj_spin1()" [disabled]="isapin" class="btn1">SPIN</button>
     <button type="button" (click)="restart()" class="btn2">RESTART</button>
-    <button type="button" #panel class="btn3" [@btnState]="position"(mouseenter)="changePosition()" (click)="onClick()" [disabled]="btnDisabled"> CASH OUT</button>
+    <button type="button" class="btn3" [@btnState]="position" (mouseenter)="changePosition()" (click)="onClick()" [disabled]="btnDisabled"> CASH OUT</button>
  </div>
 
  
