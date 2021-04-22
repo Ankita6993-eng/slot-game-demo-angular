@@ -6,7 +6,7 @@ import {AnimationBuilder, trigger,
   transition,} from '@angular/animations';
  import { ChartType, ChartOptions } from 'chart.js';
 import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip,BaseChartDirective } from 'ng2-charts';
-//
+;
 @Component({
   selector: 'app-slot-game-home',
   templateUrl: './slot-game-home.component.html',

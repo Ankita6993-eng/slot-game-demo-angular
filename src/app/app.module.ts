@@ -14,7 +14,7 @@ import { UserService} from './service/user.service';
 import { SlotGameHomeComponent } from './slot-game-home/slot-game-home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChartsModule } from 'ng2-charts';
-
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -29,7 +29,8 @@ import { ChartsModule } from 'ng2-charts';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    ChartsModule
+    ChartsModule,
+    DragDropModule
   ],
   providers: [
      { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
