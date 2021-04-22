@@ -81,13 +81,6 @@ export class SlotGameHomeComponent implements OnInit {
   public data: number|any = [this.totaltry,this.wintry];
   public pieChartType: string|any = "pie";
 
-  
-
-     h:any 
-      w:any
-   
-  
-  
   constructor(private animationBuilder:AnimationBuilder) { }
 
   ngOnInit(): void {
@@ -170,7 +163,7 @@ disableButton(){
     var rand =  Math.floor(Math.random() * 3);
     setTimeout(() => {
       this.btnDisabled= true;
-    }, rand * 3000);
+    }, rand * 4000);
   }
    changePosition(){
     this.position = 'move';
