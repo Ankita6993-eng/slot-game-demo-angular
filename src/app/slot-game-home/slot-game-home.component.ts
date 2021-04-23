@@ -26,8 +26,8 @@ import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsToolt
         })
       ),
 
-      transition('move<=>state2', animate('20000ms')),
-      transition('state2<=>move',animate('9000ms')),
+      transition('move<=>state2', animate('40000ms')),
+      transition('state2<=>move',animate('4000ms')),
    ]),
 
   ],
@@ -160,10 +160,10 @@ if(this.slot1_eq_slot2 && this.slot2_eq_slot3 && this.slot1_eq_slot3){
         }, 50);  
    }
 disableButton(){
-    var rand =  Math.floor(Math.random() * 3);
+    var rand =  Math.floor(Math.random() * 4);
     setTimeout(() => {
       this.btnDisabled= true;
-    }, rand * 4000);
+    }, rand * 6000);
   }
    changePosition(){
     this.position = 'move';
